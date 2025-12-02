@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>محاسبه‌گر سود فروش - سیستم تحلیل کسب‌وکار</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+            border-right: 5px solid #28a745;
+            display: none;
+        }
+        
+        .result h3 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        
+        .profit {
+            font-size: 28px;
+            font-weight: bold;
+            color: #28a745;
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .insight {
+            background: #e7f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-right: 3px solid #1890ff;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .feature {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧮 محاسبه‌گر هوشمند سود فروش</h1>
+        
+        <div class="input-group">
+            <label>💰 قیمت فروش (تومان)</label>
+            <input type="number" id="price" placeholder="مثال: 150000" value="150000">
+        </div>
+        
+        <div class="input-group">
+            <label>📦 قیمت خرید (تومان)</label>
+            <input type="number" id="cost" placeholder="مثال: 100000" value="100000">
+        </div>
+        
+        <div class="input-group">
+            <label>📊 تعداد فروش (عدد)</label>
+            <input type="number" id="quantity" placeholder="مثال: 10" value="10">
+        </div>
+        
+        <div class="input-group">
+            <label>⚡ هزینه‌های جانبی (تومان)</label>
+            <input type="number" id="expenses" placeholder="مثال: 50000" value="50000">
+        </div>
+        
+        <button onclick="calculateProfit()">🎯 محاسبه سود واقعی</button>
+        
+        <div class="result" id="result">
+            <h3>📈 نتیجه تحلیل:</h3>
+            <div class="profit" id="profitAmount">۰ تومان</div>
+            
+            <div class="insight" id="insight">
+                <strong>💡 بینش کسب‌وکاری:</strong>
+                <p id="insightText">در حال محاسبه...</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature">✅ محاسبه دقیق سود</div>
+                <div class="feature">📊 تحلیل حاشیه سود</div>
+                <div class="feature">🎯 پیشنهاد هوشمند</div>
+                <div class="feature">🚀 بهینه‌سازی فروش</div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>این نمونه اولیه از <strong>"سیستم تحلیل هوشمند فروش"</strong> است.</p>
+            <p>نسخه کامل: تحلیل خودکار، داشبورد آنلاین، هشدار هوشمند</p>
+        </footer>
+    </div>
+
+    <script>
+        function calculateProfit() {
+            // دریافت مقادیر
+            const price = parseInt(document.getElementById('price').value) || 0;
+            const cost = parseInt(document.getElementById('cost').value) || 0;
+            const quantity = parseInt(document.getElementById('quantity').value) || 0;
+            const expenses = parseInt(document.getElementById('expenses').value) || 0;
+            
+            // محاسبات
+            const totalRevenue = price * quantity;
+            const totalCost = (cost * quantity) + expenses;
+            const netProfit = totalRevenue - totalCost;
+            const profitMargin = totalRevenue > 0 ? ((netProfit / totalRevenue) * 100).toFixed(1) : 0;
+            
+            // نمایش نتیجه
+            document.getElementById('profitAmount').textContent = 
+                netProfit.toLocaleString('fa-IR') + ' تومان';
+            
+            // تولید بینش
+            let insightText = '';
+            let insightColor = '#28a745';
+            
+            if (netProfit < 0) {
+                insightText = '⚠️ این محصول در حال ضرردهی است! قیمت را افزایش دهید یا هزینه‌ها را کاهش دهید.';
+                insightColor = '#dc3545';
+            } else if (profitMargin < 10) {
+                insightText = '📊 حاشیه سود پایین است. حجم فروش را افزایش دهید یا در خرید به قیمت بهتری برسید.';
+                insightColor = '#ffc107';
+            } else if (profitMargin > 30) {
+                insightText = '🎉 عالی! این محصول سودآور است. روی تبلیغات آن سرمایه‌گذاری کنید.';
+                insightColor = '#28a745';
+            } else {
+                insightText = '✅ سودآوری قابل قبول. می‌توانید با بهینه‌سازی، سود را افزایش دهید.';
+                insightColor = '#17a2b8';
+            }
+            
+            document.getElementById('insightText').textContent = insightText;
+            document.getElementById('insight').style.borderRightColor = insightColor;
+            
+            // نمایش بخش نتیجه
+            document.getElementById('result').style.display = 'block';
+            
+            // اسکرول به نتیجه
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // محاسبه اولیه
+        calculateProfit();
+    </script>
+</body>
+</html>
